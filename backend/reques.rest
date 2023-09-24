@@ -1,0 +1,28 @@
+GET http://localhost:5000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJOYW1lIjoiRHlvbmUgU3RyYW5rZXJzIiwidXNlckVtYWlsIjoiZHlvbmVAZHlvbmUuY29tIiwiaWF0IjoxNjk1NTU5MTMyLCJleHAiOjE2OTU1NTkxNTJ9.DHGFgyd6vIHf01Ni9fkINuwQJhNu9k3rdPIpnLTRwA8
+
+###
+POST  http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name": "Rifky Muhamad",
+    "email": "rifky@dyone.com",
+    "password": "qwerty1234567890",
+    "confirmPassword": "qwerty12345"
+}
+
+###
+POST  http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "dyone@dyone.com",
+    "password": "qwerty12345"
+}
+
+###
+GET http://localhost:5000/token
+
+###
+DELETE http://localhost:5000/logout
