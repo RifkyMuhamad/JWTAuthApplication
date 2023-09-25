@@ -5,7 +5,7 @@
 # Server Side Tech
 
 ## Dependencies
-| ArtifactID                                                  | Version | Purpose             |
+| Library Name                                                | Version | Purpose             |
 |-------------------------------------------------------------|---------|---------------------|
 | [babel-jest](https://babeljs.io/setup#installation)         | 5.10.0  | Compiler JS Version |
 | [bcrypt](https://github.com/kelektiv/node.bcrypt.js)        | 5.10.0  | -                   |
