@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import db from "./src/config/Database.js";
 import router from "./src/routes/index.js";
-import users from "./src/models/UserModel.js";
+import Users from "./src/models/UserModel.js";
 
 // .env configuration
 dotenv.config();
@@ -19,7 +19,7 @@ const app = express();
 try {
   await db.authenticate();
   console.log("Database connected");
-  await users.sync();
+  await Users.sync();
 } catch (error) {
   console.error(error);
 }

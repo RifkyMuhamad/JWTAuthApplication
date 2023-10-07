@@ -7,9 +7,9 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [msg, setMsg] = useState("");
+  const [errorData, setErrorData] = useState(null);
 
-  const endPoint = "http://localhost:5000/users";
+  const RegisterEndPoint = "http://localhost:5000/users";
 
   const formData = {
     name: name,
@@ -23,12 +23,14 @@ const Register = () => {
   const reg = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(endPoint, formData);
-      navigate("/");
-    } catch (error) {
-      if (error.response) {
-        setMsg(error.response.data.msg);
+      const response = await axios.post(RegisterEndPoint, formData);
+      if (response.status === 200) {
+        navigate("/");
       }
+    } catch (error) {
+      const errorResponseData = error.response.data;
+      setErrorData(errorResponseData);
+      console.log(error.response.data);
     }
   };
 
@@ -87,7 +89,12 @@ const Register = () => {
                     />
                   </div>
                 </div>
-                <p className="has-text-centered">{msg}</p>
+                <div>
+                  {errorData &&
+                    errorData.msg.map((message, index) => (
+                      <p key={index} className="has-text-danger">{message.messages}</p>
+                    ))}
+                </div>
                 <div className="field mt-5">
                   <button className="button is-success is-fullwidth">
                     Register

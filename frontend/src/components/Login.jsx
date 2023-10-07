@@ -3,28 +3,30 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [msg, setMsg] = useState("");
+  const [errorData, setErrorData] = useState("");
 
-  const navigate = useNavigate();
-
-  const loginEndPoint = "http://localhost:5000/login";
+  const LoginEndPoint = "http://localhost:5000/login";
 
   const formData = {
-    email: email,
+    emailOrUsername: emailOrUsername,
     password: password,
   };
+
+  const navigate = useNavigate();
 
   const auth = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(loginEndPoint, formData);
-      navigate("/dashboard");
-    } catch (error) {
-      if (error.response) {
-        setMsg(error.response.data.msg);
+      const response = await axios.post(LoginEndPoint, formData);
+      if (response.status === 200) {
+        navigate("/dashboard");
       }
+    } catch (error) {
+      const errorResponseData = error.response.data;
+      setErrorData(errorResponseData);
+      console.log(error.response.data);
     }
   };
 
@@ -45,8 +47,8 @@ const Login = () => {
                       id="emailInput"
                       className="input"
                       placeholder="Username"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={emailOrUsername}
+                      onChange={(e) => setEmailOrUsername(e.target.value)}
                     />
                   </div>
                 </div>
@@ -65,7 +67,17 @@ const Login = () => {
                     />
                   </div>
                 </div>
-                <p className="has-text-centered">{msg}</p>
+                <div>
+                  {errorData.msg ? (
+                    Array.isArray(errorData.msg) ? (
+                      errorData.msg.map((message, index) => (
+                        <p key={index}>{message.messages}</p>
+                      ))
+                    ) : (
+                      <p>{errorData.msg}</p>
+                    )
+                  ) : null}
+                </div>
                 <div className="field mt-5">
                   <button className="button is-success is-fullwidth">
                     Login

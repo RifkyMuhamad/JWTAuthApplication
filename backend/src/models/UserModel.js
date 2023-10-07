@@ -4,7 +4,7 @@ import db from "../config/Database.js";
 // DataTypes are used to define the data type of table columns in a database
 const { DataTypes } = Sequelize;
 
-const users = db.define(
+const Users = db.define(
   "users",
   {
     name: {
@@ -25,4 +25,4 @@ const users = db.define(
   }
 );
 
-export default users;
+export default Users;
